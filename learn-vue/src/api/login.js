@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(ticket) {
   return request({
-    url: '/login',
+    url: '/auth/cas',
     method: 'post',
     data: {
       ticket
