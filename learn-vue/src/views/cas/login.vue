@@ -1,24 +1,25 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
-import { login } from "@/api/login";
-
 export default {
   data() {
     return {
-      ticket: null
-    }
+      ticket: null,
+    };
   },
   mounted() {
-    this.ticket = this.$route.query.ticket
-    login(this.ticket).then((e) => {
-      console.log(e)
-      this.$router.push({path: '/'})
-    })
+    this.ticket = this.$route.query.ticket;
+    this.$store
+      .dispatch("Login", this.ticket)
+      .then(() => {
+        this.loading = false;
+        this.$router.push({ path: "/" });
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   },
-}
+};
 </script>

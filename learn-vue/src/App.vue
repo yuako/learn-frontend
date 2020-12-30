@@ -28,14 +28,7 @@
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <router-link class="navbar-item" to="/"> Home </router-link>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link"> Cas </a>
-
-            <div class="navbar-dropdown">
-              <router-link class="navbar-item" to="/cas"> Cas测试 </router-link>
-            </div>
-          </div>
+          <router-link class="navbar-item" to="/cas"> Cas测试 </router-link>
         </div>
 
         <!-- <div class="navbar-end">
@@ -59,10 +52,19 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 
+
 export default {
   name: "App",
   components: {
     // HelloWorld
+  },
+  mounted() {
+    const timer = setInterval(() => {
+      this.$store.dispatch("Refresh");
+    }, 5000);
+    this.$once("hook:beforeDestroy", () => {
+      clearInterval(timer);
+    });
   },
 };
 </script>

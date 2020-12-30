@@ -9,3 +9,10 @@ export function login(ticket) {
     }
   })
 }
+
+export function refresh() {
+  return request({
+    url: '/auth/refreshToken',
+    method: 'get'
+  })
+}

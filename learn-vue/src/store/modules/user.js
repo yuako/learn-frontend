@@ -1,4 +1,4 @@
-import { login } from '@/api/login'
+import { login, refresh } from '@/api/auth'
 import { getToken, setToken } from '@/utils/auth'
 
 const user = {
@@ -25,12 +25,11 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+    Login({ commit }, ticket) {
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login(ticket).then(response => {
           const data = response.data
-          const tokenStr = data.tokenHead+data.token
+          const tokenStr = data.tokenHead + data.token
           setToken(tokenStr)
           commit('SET_TOKEN', tokenStr)
           resolve()
@@ -39,6 +38,19 @@ const user = {
         })
       })
     },
+    Refresh({ commit }) {
+      return new Promise((resolve, reject) => {
+        refresh().then(response => {
+          const data = response.data
+          const tokenStr = data.tokenHead + data.token
+          setToken(tokenStr)
+          commit('SET_TOKEN', tokenStr)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
 }
 

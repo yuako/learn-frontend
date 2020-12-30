@@ -30,7 +30,6 @@ service.interceptors.response.use(
     if (res.code !== 200) {
       // 401:未登录;
       if (res.code === 401) {
-        console.log(res.data.url)
         location.href = res.data.url
       }
       return Promise.reject('error')
